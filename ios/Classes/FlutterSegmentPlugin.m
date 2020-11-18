@@ -6,12 +6,51 @@
 #import <Segment_Firebase/SEGFirebaseIntegrationFactory.h>
 @import AdSupport;
 @import Segment;
+#import <AppTrackingTransparency/AppTrackingTransparency.h>
 
 @implementation FlutterSegmentPlugin
 // Contents to be appended to the context
 static NSDictionary *_appendToContextMiddleware;
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
+    @try {
+        if (@available(iOS 14, *)) {
+            if(ATTrackingManager.trackingAuthorizationStatus == ATTrackingManagerAuthorizationStatusNotDetermined) {
+                [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+                    if(status == ATTrackingManagerAuthorizationStatusAuthorized){
+                        NSLog(@"advertisingIdentifier = %@", [[ASIdentifierManager sharedManager] advertisingIdentifier].UUIDString);
+                    }
+                    [FlutterSegmentPlugin configureSegment];
+                }];
+            }
+            else {
+                if(ATTrackingManager.trackingAuthorizationStatus == ATTrackingManagerAuthorizationStatusAuthorized){
+                    NSLog(@"advertisingIdentifier %@", [[ASIdentifierManager sharedManager] advertisingIdentifier].UUIDString);
+                }
+                else {
+                        NSLog(@"advertisingIdentifier KO");
+                }
+                [FlutterSegmentPlugin configureSegment];
+            }
+        } else {
+            [FlutterSegmentPlugin configureSegment];
+        }
+
+        
+        
+        FlutterMethodChannel* channel = [FlutterMethodChannel
+          methodChannelWithName:@"flutter_segment"
+          binaryMessenger:[registrar messenger]];
+        FlutterSegmentPlugin* instance = [[FlutterSegmentPlugin alloc] init];
+        [registrar addMethodCallDelegate:instance channel:channel];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", [exception reason]);
+    }
+}
+
+
++ (void)configureSegment {
     @try {
         NSString *path = [[NSBundle mainBundle] pathForResource: @"Info" ofType: @"plist"];
         NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
@@ -119,16 +158,12 @@ static NSDictionary *_appendToContextMiddleware;
         };
 
         [SEGAnalytics setupWithConfiguration:configuration];
-        FlutterMethodChannel* channel = [FlutterMethodChannel
-          methodChannelWithName:@"flutter_segment"
-          binaryMessenger:[registrar messenger]];
-        FlutterSegmentPlugin* instance = [[FlutterSegmentPlugin alloc] init];
-        [registrar addMethodCallDelegate:instance channel:channel];
     }
     @catch (NSException *exception) {
         NSLog(@"%@", [exception reason]);
     }
 }
+
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"identify" isEqualToString:call.method]) {
