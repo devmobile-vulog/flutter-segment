@@ -1,4 +1,5 @@
 PODS:
+  - Amplitude (7.0.1)
   - Analytics (4.1.2)
   - Firebase/Core (6.34.0):
     - Firebase/CoreOnly
@@ -32,6 +33,7 @@ PODS:
   - flutter_segment (0.0.1):
     - Analytics (~> 4.1.2)
     - Flutter
+    - Segment-Amplitude (~> 3.2.3)
     - Segment-Firebase (~> 2.7.0)
   - GoogleAppMeasurement (6.9.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
@@ -66,6 +68,9 @@ PODS:
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
   - PromisesObjC (1.2.11)
+  - Segment-Amplitude (3.2.3):
+    - Amplitude (~> 7.0.1)
+    - Analytics
   - Segment-Firebase (2.7.0):
     - Analytics
     - Firebase/Core (~> 6.2)
@@ -82,6 +87,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Amplitude
     - Analytics
     - Firebase
     - FirebaseAnalytics
@@ -93,6 +99,7 @@ SPEC REPOS:
     - GoogleUtilities
     - nanopb
     - PromisesObjC
+    - Segment-Amplitude
     - Segment-Firebase
 
 EXTERNAL SOURCES:
@@ -102,6 +109,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_segment/ios"
 
 SPEC CHECKSUMS:
+  Amplitude: 31a9038dca905b78294418ed277da9c2e07658ad
   Analytics: 177da2c597aba83a6882b706ca6e0a071fd7cd26
   Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
   FirebaseAnalytics: 3bb096873ee0d7fa4b6c70f5e9166b6da413cc7f
@@ -109,14 +117,15 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  flutter_segment: aeddc0ea00d54a1bd103c34717068a6a8799e91f
+  flutter_segment: 7560f156e5d384ab93b044b62210e5aa9e064892
   GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
   GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
+  Segment-Amplitude: 79e13fa0aa58341212041f524f5f9679e40c23de
   Segment-Firebase: 41677a446f58989db69912059949107afb0c3f38
 
-PODFILE CHECKSUM: 8e679eca47255a8ca8067c4c67aab20e64cb974d
+PODFILE CHECKSUM: 76aaac2b301aa40241aa71d54b58fe3a3c060f7b
 
 COCOAPODS: 1.10.0
