@@ -18,6 +18,7 @@ A new flutter plugin project.
   s.dependency 'Analytics', '3.7.0'
   s.dependency 'Segment-Amplitude', '3.0.1'
   s.dependency 'Segment-Firebase'
+  s.static_framework = true
   s.ios.deployment_target = '8.0'
 
 end
