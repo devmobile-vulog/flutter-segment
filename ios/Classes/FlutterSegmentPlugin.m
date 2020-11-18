@@ -17,6 +17,7 @@ static NSDictionary *_appendToContextMiddleware;
     BOOL trackApplicationLifecycleEvents = [[dict objectForKey: @"com.claimsforce.segment.TRACK_APPLICATION_LIFECYCLE_EVENTS"] boolValue];
     BOOL isAmplitudeIntegrationEnabled = [[dict objectForKey: @"com.claimsforce.segment.ENABLE_AMPLITUDE_INTEGRATION"] boolValue];
     BOOL isFirebaseIntegrationEnabled = [[dict objectForKey: @"com.claimsforce.segment.ENABLE_FIREBASE_INTEGRATION"] boolValue];
+    BOOL isEnableAdvertisingTracking = [[dict objectForKey: @"com.claimsforce.segment.ENABLE_ADVERTISING_TRACKING"] boolValue];
     SEGAnalyticsConfiguration *configuration = [SEGAnalyticsConfiguration configurationWithWriteKey:writeKey];
 
     // This middleware is responsible for manipulating only the context part of the request,
@@ -111,6 +112,13 @@ static NSDictionary *_appendToContextMiddleware;
 
     if (isFirebaseIntegrationEnabled) {
       [configuration use:[SEGFirebaseIntegrationFactory instance]];
+    }
+    
+    if (isEnableAdvertisingTracking) {
+      configuration.enableAdvertisingTracking = YES;
+      configuration.adSupportBlock = ^{
+          return [[ASIdentifierManager sharedManager] advertisingIdentifier];
+      }
     }
 
     [SEGAnalytics setupWithConfiguration:configuration];
