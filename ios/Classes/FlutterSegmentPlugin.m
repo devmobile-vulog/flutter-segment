@@ -2,8 +2,8 @@
 #import <Analytics/SEGAnalytics.h>
 #import <Analytics/SEGContext.h>
 #import <Analytics/SEGMiddleware.h>
-#import <Segment-Amplitude/SEGAmplitudeIntegrationFactory.h>
-#import <Segment-Firebase/SEGFirebaseIntegrationFactory.h>
+#import <Segment_Amplitude/SEGAmplitudeIntegrationFactory.h>
+#import <Segment_Firebase/SEGFirebaseIntegrationFactory.h>
 
 @implementation FlutterSegmentPlugin
 // Contents to be appended to the context
