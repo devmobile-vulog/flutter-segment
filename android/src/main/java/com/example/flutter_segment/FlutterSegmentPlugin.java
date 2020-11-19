@@ -14,7 +14,6 @@ import com.segment.analytics.Properties;
 import com.segment.analytics.Traits;
 import com.segment.analytics.Options;
 import com.segment.analytics.Middleware;
-import com.segment.analytics.android.integrations.firebase.FirebaseIntegration;
 import com.segment.analytics.integrations.BasePayload;
 import com.segment.analytics.android.integrations.amplitude.AmplitudeIntegration;
 import static com.segment.analytics.Analytics.LogLevel;
@@ -62,7 +61,6 @@ public class FlutterSegmentPlugin implements MethodCallHandler, FlutterPlugin {
       String writeKey = bundle.getString("com.claimsforce.segment.WRITE_KEY");
       boolean trackApplicationLifecycleEvents = bundle.getBoolean("com.claimsforce.segment.TRACK_APPLICATION_LIFECYCLE_EVENTS");
       boolean isAmplitudeIntegrationEnabled = bundle.getBoolean("com.claimsforce.segment.ENABLE_AMPLITUDE_INTEGRATION", false);
-      boolean isFirebaseIntegrationEnabled = bundle.getBoolean("com.claimsforce.segment.ENABLE_FIREBASE_INTEGRATION", false);
       boolean debug = bundle.getBoolean("com.claimsforce.segment.DEBUG", false);
 
       Analytics.Builder analyticsBuilder = new Analytics.Builder(applicationContext, writeKey);
@@ -77,10 +75,6 @@ public class FlutterSegmentPlugin implements MethodCallHandler, FlutterPlugin {
 
       if (isAmplitudeIntegrationEnabled) {
         analyticsBuilder.use(AmplitudeIntegration.FACTORY);
-      }
-
-      if (isFirebaseIntegrationEnabled) {
-        analyticsBuilder.use(FirebaseIntegration.FACTORY);
       }
 
       // Here we build a middleware that just appends data to the current context
