@@ -46,6 +46,6 @@
 	<key>com.claimsforce.segment.TRACK_APPLICATION_LIFECYCLE_EVENTS</key>
 	<true/>
 	<key>com.claimsforce.segment.WRITE_KEY</key>
-	<string>GoWBpSobYtbSNudfjDQTRFVZrmBg1g1H</string>
+	<string>WRITE_KEY</string>
 </dict>
 </plist>

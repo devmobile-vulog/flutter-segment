@@ -1,9 +1,5 @@
 #import "FlutterSegmentPlugin.h"
-// #import <Analytics/SEGAnalytics.h>
-// #import <Analytics/SEGContext.h>
-// #import <Analytics/SEGMiddleware.h>
 #import <Segment_Amplitude/SEGAmplitudeIntegrationFactory.h>
-#import <Segment_Firebase/SEGFirebaseIntegrationFactory.h>
 @import AdSupport;
 @import Segment;
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
@@ -57,7 +53,6 @@ static NSDictionary *_appendToContextMiddleware;
         NSString *writeKey = [dict objectForKey: @"com.claimsforce.segment.WRITE_KEY"];
         BOOL trackApplicationLifecycleEvents = [[dict objectForKey: @"com.claimsforce.segment.TRACK_APPLICATION_LIFECYCLE_EVENTS"] boolValue];
         BOOL isAmplitudeIntegrationEnabled = [[dict objectForKey: @"com.claimsforce.segment.ENABLE_AMPLITUDE_INTEGRATION"] boolValue];
-        BOOL isFirebaseIntegrationEnabled = [[dict objectForKey: @"com.claimsforce.segment.ENABLE_FIREBASE_INTEGRATION"] boolValue];
         SEGAnalyticsConfiguration *configuration = [SEGAnalyticsConfiguration configurationWithWriteKey:writeKey];
 
       // This middleware is responsible for manipulating only the context part of the request,
@@ -145,14 +140,8 @@ static NSDictionary *_appendToContextMiddleware;
         if (isAmplitudeIntegrationEnabled) {
           [configuration use:[SEGAmplitudeIntegrationFactory instance]];
         }
-
-        if (isFirebaseIntegrationEnabled) {
-          [configuration use:[SEGFirebaseIntegrationFactory instance]];
-        }
           
         configuration.enableAdvertisingTracking = YES;
-        // Set the block to be called when the advertisingID is needed
-        // NOTE: In iOS 14, you'll need to manually do authorization elsewhere and only when it has been authorized, return the advertisingIdentifier to segment via the block below
         configuration.adSupportBlock = ^NSString * _Nonnull{
             return [[ASIdentifierManager sharedManager] advertisingIdentifier].UUIDString;
         };
